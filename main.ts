@@ -46,6 +46,26 @@ export class MyChart extends Chart {
         },
       },
     });
+    new KubeDeployment(this, 'deployment2', {
+      spec: {
+        replicas: 2,
+        selector: {
+          matchLabels: label,
+        },
+        template: {
+          metadata: { labels: label },
+          spec: {
+            containers: [
+              {
+                name: 'nginx-dep',
+                image: 'nginx:latest',
+                ports: [{ containerPort: 80 }],
+              },
+            ],
+          },
+        },
+      },
+    });
   }
 }
 
